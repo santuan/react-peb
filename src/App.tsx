@@ -4,23 +4,18 @@ import {
   useGLTF,
   Edges,
   MeshPortalMaterial,
-  CameraControls,
   Environment,
-  PivotControls,
   Stars,
   OrbitControls,
 } from "@react-three/drei";
-// import Bananas from "./Bananas";
 
-import { Suspense, lazy, useState } from "react";
+import { Suspense } from "react";
 import Overlay from "./layout/Overlay";
 import { FadeIn } from "./layout/styles";
 
 // Comment the above and uncomment the following to import the WebGL BG lazily for faster loading times
-const Bananas = lazy(() => import("./Bananas"));
 
 export default function App() {
-  const [speed, set] = useState(1);
   return (
     <>
       <Suspense fallback={null}>
@@ -72,7 +67,7 @@ export default function App() {
 function Side({ rotation = [0, 0, 0], bg = "#f0f0f0", children, index }) {
   const mesh = useRef();
   const { nodes } = useGLTF("/aobox-transformed.glb");
-  useFrame((state, delta) => {
+  useFrame((delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += delta;
   });
   return (

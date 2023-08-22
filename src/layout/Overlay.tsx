@@ -2,7 +2,6 @@ import {
   Container,
   TopLeft,
 } from "./styles";
-import { VelvetBanana } from "./VelvetBanana";
 
 export default function Overlay() {
   return (
