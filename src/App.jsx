@@ -32,21 +32,21 @@ export default function App() {
       <Canvas shadows camera={{ position: [-3, 0.5, 3] }}>
         <Suspense fallback={<Loader />}>
           <Stars
-            radius={100}
+            radius={10}
             depth={50}
-            count={5000}
-            factor={4}
+            count={500}
+            factor={3}
             saturation={0}
             fade
-            speed={1}
+            speed={2}
           />
           <mesh castShadow receiveShadow>
             <boxGeometry args={[2, 2, 2]} />
             <Edges />
-            <Side rotation={[0, 0, 0]} bg="orange" index={0}>
+            <Side rotation={[0, 0, 0]} bg="#d67158" index={0}>
               <torusGeometry args={[0.65, 0.3, 64]} />
             </Side>
-            <Side rotation={[0, Math.PI, 0]} bg="lightblue" index={1}>
+            <Side rotation={[0, Math.PI, 0]} bg="#84b9c1" index={1}>
               <torusKnotGeometry args={[0.55, 0.2, 128, 32]} />
             </Side>
             <Side
@@ -62,7 +62,6 @@ export default function App() {
               index={3}
             >
               <octahedronGeometry />
-             
             </Side>
             <Side rotation={[0, -Math.PI / 2, 0]} bg="indianred" index={4}>
               <icosahedronGeometry />
@@ -87,8 +86,9 @@ function Side({ rotation = [0, 0, 0], bg = "#f0f0f0", children, index }) {
   return (
     <MeshPortalMaterial attach={`material-${index}`}>
       {/** Everything in here is inside the portal and isolated from the canvas */}
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={12.5} />
       <Environment preset="city" />
+
       {/** A box with baked AO */}
       <mesh
         castShadow
@@ -101,6 +101,7 @@ function Side({ rotation = [0, 0, 0], bg = "#f0f0f0", children, index }) {
           aoMap={nodes.Cube.material.aoMap}
           color={bg}
         />
+
         <spotLight
           castShadow
           color={bg}
