@@ -9,17 +9,19 @@ export default function Overlay() {
           <br />
           BARCO —
         </h1>
+      </TopLeft>
+      <div className="fixed bottom-0 right-0 z-10 p-2 overflow-hidden rounded-lg">
         <iframe
-          className="fixed bottom-0 right-0 z-20 m-2 overflow-hidden bg-red-600 rounded-lg"
-          width="250"
-          height="250"
+          width="200"
+          height="200"
+          className="m-0 aspect-square"
           src="https://www.youtube.com/embed/15QXm7w_j7M"
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
         ></iframe>
-      </TopLeft>
+      </div>
     </Container>
   );
 }

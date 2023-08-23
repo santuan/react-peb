@@ -10,7 +10,6 @@ import {
   useProgress,
   Html,
 } from "@react-three/drei";
-import { useControls } from "leva";
 import Overlay from "./layout/Overlay";
 
 function Loader() {
@@ -81,7 +80,6 @@ export default function App() {
 
 function Side({ rotation = [0, 0, 0], bg = "#f0f0f0", children, index }) {
   const mesh = useRef();
-  useControls({ worldUnits: false });
   const { nodes } = useGLTF("/aobox-transformed.glb");
   useFrame((state, delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += delta;
