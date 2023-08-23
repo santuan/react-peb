@@ -8,21 +8,14 @@ import {
   Stars,
   OrbitControls,
 } from "@react-three/drei";
-
-import { Suspense } from "react";
+import { useControls } from "leva";
 import Overlay from "./layout/Overlay";
-import { FadeIn } from "./layout/styles";
-
-// Comment the above and uncomment the following to import the WebGL BG lazily for faster loading times
 
 export default function App() {
   return (
     <>
-      <Suspense fallback={null}>
-        <FadeIn />
-      </Suspense>
       <Overlay />
-      <Canvas shadows camera={{ position: [0, -2, 3] }}>
+      <Canvas shadows camera={{ position: [-3, 0.5, 3] }}>
         <Stars
           radius={100}
           depth={50}
@@ -32,33 +25,37 @@ export default function App() {
           fade
           speed={1}
         />
-        <mesh castShadow receiveShadow scale={0.8}>
+        <mesh castShadow receiveShadow>
           <boxGeometry args={[2, 2, 2]} />
           <Edges />
-          <Side rotation={[0, 0, 0]} bg="#cdc8c1" index={0}>
+          <Side rotation={[0, 0, 0]} bg="orange" index={0}>
             <torusGeometry args={[0.65, 0.3, 64]} />
           </Side>
-          <Side rotation={[0, Math.PI, 0]} bg="#b1a2a0" index={1}>
+          <Side rotation={[0, Math.PI, 0]} bg="lightblue" index={1}>
             <torusKnotGeometry args={[0.55, 0.2, 128, 32]} />
           </Side>
-          <Side rotation={[0, Math.PI / 2, Math.PI / 2]} bg="#386257" index={2}>
+          <Side
+            rotation={[0, Math.PI / 2, Math.PI / 2]}
+            bg="lightgreen"
+            index={2}
+          >
             <boxGeometry args={[1.15, 1.15, 1.15]} />
           </Side>
           <Side
             rotation={[0, Math.PI / 2, -Math.PI / 2]}
-            bg="#b0a85e"
+            bg="aquamarine"
             index={3}
           >
             <octahedronGeometry />
           </Side>
-          <Side rotation={[0, -Math.PI / 2, 0]} bg="#7d9f94" index={4}>
+          <Side rotation={[0, -Math.PI / 2, 0]} bg="indianred" index={4}>
             <icosahedronGeometry />
           </Side>
-          <Side rotation={[0, Math.PI / 2, 0]} bg="#fff" index={5}>
+          <Side rotation={[0, Math.PI / 2, 0]} bg="hotpink" index={5}>
             <dodecahedronGeometry />
           </Side>
         </mesh>
-        <OrbitControls autoRotate autoRotateSpeed={0.5} />
+        <OrbitControls makeDefault autoRotate autoRotateSpeed={0.5} />
       </Canvas>
     </>
   );
@@ -66,8 +63,9 @@ export default function App() {
 
 function Side({ rotation = [0, 0, 0], bg = "#f0f0f0", children, index }) {
   const mesh = useRef();
+  useControls({ worldUnits: false });
   const { nodes } = useGLTF("/aobox-transformed.glb");
-  useFrame((delta) => {
+  useFrame((state, delta) => {
     mesh.current.rotation.x = mesh.current.rotation.y += delta;
   });
   return (
