@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   useGLTF,
@@ -7,55 +7,76 @@ import {
   Environment,
   Stars,
   OrbitControls,
+  useProgress,
+  Html,
 } from "@react-three/drei";
 import { useControls } from "leva";
 import Overlay from "./layout/Overlay";
+
+function Loader() {
+  const { active, progress, errors, item, loaded, total } = useProgress();
+  return (
+    <Html center>
+      <div className="flex flex-col items-center justify-center gap-2 font-mono">
+        <div className="w-full h-1 bg-gray-900 rounded-full">
+          <div
+            className="h-1 bg-white/50"
+            style={{ width: progress }}
+          >
+          </div>
+        </div>
+      </div>
+    </Html>
+  );
+}
 
 export default function App() {
   return (
     <>
       <Overlay />
       <Canvas shadows camera={{ position: [-3, 0.5, 3] }}>
-        <Stars
-          radius={100}
-          depth={50}
-          count={5000}
-          factor={4}
-          saturation={0}
-          fade
-          speed={1}
-        />
-        <mesh castShadow receiveShadow>
-          <boxGeometry args={[2, 2, 2]} />
-          <Edges />
-          <Side rotation={[0, 0, 0]} bg="orange" index={0}>
-            <torusGeometry args={[0.65, 0.3, 64]} />
-          </Side>
-          <Side rotation={[0, Math.PI, 0]} bg="lightblue" index={1}>
-            <torusKnotGeometry args={[0.55, 0.2, 128, 32]} />
-          </Side>
-          <Side
-            rotation={[0, Math.PI / 2, Math.PI / 2]}
-            bg="lightgreen"
-            index={2}
-          >
-            <boxGeometry args={[1.15, 1.15, 1.15]} />
-          </Side>
-          <Side
-            rotation={[0, Math.PI / 2, -Math.PI / 2]}
-            bg="aquamarine"
-            index={3}
-          >
-            <octahedronGeometry />
-          </Side>
-          <Side rotation={[0, -Math.PI / 2, 0]} bg="indianred" index={4}>
-            <icosahedronGeometry />
-          </Side>
-          <Side rotation={[0, Math.PI / 2, 0]} bg="hotpink" index={5}>
-            <dodecahedronGeometry />
-          </Side>
-        </mesh>
-        <OrbitControls makeDefault autoRotate autoRotateSpeed={0.5} />
+        <Suspense fallback={<Loader />}>
+          <Stars
+            radius={100}
+            depth={50}
+            count={5000}
+            factor={4}
+            saturation={0}
+            fade
+            speed={1}
+          />
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[2, 2, 2]} />
+            <Edges />
+            <Side rotation={[0, 0, 0]} bg="orange" index={0}>
+              <torusGeometry args={[0.65, 0.3, 64]} />
+            </Side>
+            <Side rotation={[0, Math.PI, 0]} bg="lightblue" index={1}>
+              <torusKnotGeometry args={[0.55, 0.2, 128, 32]} />
+            </Side>
+            <Side
+              rotation={[0, Math.PI / 2, Math.PI / 2]}
+              bg="lightgreen"
+              index={2}
+            >
+              <boxGeometry args={[1.15, 1.15, 1.15]} />
+            </Side>
+            <Side
+              rotation={[0, Math.PI / 2, -Math.PI / 2]}
+              bg="aquamarine"
+              index={3}
+            >
+              <octahedronGeometry />
+            </Side>
+            <Side rotation={[0, -Math.PI / 2, 0]} bg="indianred" index={4}>
+              <icosahedronGeometry />
+            </Side>
+            <Side rotation={[0, Math.PI / 2, 0]} bg="hotpink" index={5}>
+              <dodecahedronGeometry />
+            </Side>
+          </mesh>
+          <OrbitControls makeDefault autoRotate autoRotateSpeed={0.5} />
+        </Suspense>
       </Canvas>
     </>
   );
