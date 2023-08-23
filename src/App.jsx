@@ -18,8 +18,9 @@ function Loader() {
     <Html center>
       <div className="flex flex-col items-center justify-center gap-2 font-mono">
         <div className="w-full h-1 bg-gray-900 rounded-full">
-          <div className="h-1 bg-white/50" style={{ width: progress }}></div>
+          <div className="h-1 bg-white" style={{ width: progress }}></div>
         </div>
+        {progress}
       </div>
     </Html>
   );
