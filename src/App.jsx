@@ -14,16 +14,12 @@ import { useControls } from "leva";
 import Overlay from "./layout/Overlay";
 
 function Loader() {
-  const { active, progress, errors, item, loaded, total } = useProgress();
+  const { progress } = useProgress();
   return (
     <Html center>
       <div className="flex flex-col items-center justify-center gap-2 font-mono">
         <div className="w-full h-1 bg-gray-900 rounded-full">
-          <div
-            className="h-1 bg-white/50"
-            style={{ width: progress }}
-          >
-          </div>
+          <div className="h-1 bg-white/50" style={{ width: progress }}></div>
         </div>
       </div>
     </Html>
@@ -67,6 +63,7 @@ export default function App() {
               index={3}
             >
               <octahedronGeometry />
+             
             </Side>
             <Side rotation={[0, -Math.PI / 2, 0]} bg="indianred" index={4}>
               <icosahedronGeometry />
