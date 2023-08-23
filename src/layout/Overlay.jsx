@@ -45,7 +45,7 @@ export default function Overlay() {
         <button
           type="button"
           onClick={closeModal}
-          className="fixed top-0 z-50 outline-none m-3right-0 "
+          className="fixed top-0 right-0 z-50 m-3 outline-none "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
