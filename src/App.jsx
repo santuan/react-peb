@@ -87,7 +87,7 @@ function Side({ rotation = [0, 0, 0], bg = "#f0f0f0", children, index }) {
   return (
     <MeshPortalMaterial attach={`material-${index}`}>
       {/** Everything in here is inside the portal and isolated from the canvas */}
-      <ambientLight intensity={12.5} />
+      <ambientLight intensity={4} />
       <Environment preset="city" />
 
       {/** A box with baked AO */}

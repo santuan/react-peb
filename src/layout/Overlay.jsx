@@ -35,7 +35,7 @@ export default function Overlay() {
         <iframe
           width="600"
           height="600"
-          className="relative z-30 w-80 h-80 md:w-auto md:h-full aspect-square"
+          className="relative z-30 max-w-2xl w-80 h-80 md:w-auto md:h-[600px] aspect-square"
           src="https://www.youtube.com/embed/15QXm7w_j7M"
           title="YouTube video player"
           frameBorder="0"
